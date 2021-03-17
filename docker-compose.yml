@@ -13,20 +13,22 @@ services:
       - "80"
       - "8080"
 
-  master:
-    image: kolibri
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - /tmp/kolibri-home:/kolibri-home
-    environment:
-      - EXPLORE_VERSION=master
-
   stable:
-    image: kolibri
+    image: eos-kolibri-explore:stable
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - /tmp/kolibri-home:/kolibri-home
+      - kolibri_home:/kolibri-home
+
+  master:
+    image: eos-kolibri-explore:master
+    build:
+      context: .
+      dockerfile: Dockerfile-master
+    volumes:
+      - kolibri_home:/kolibri-home
+
+volumes:
+  kolibri_home:
+    name: kolibri-home
