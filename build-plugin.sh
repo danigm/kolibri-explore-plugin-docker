@@ -11,8 +11,10 @@ yarn global add @vue/cli
 
 # building all custom channels and copy to kolibri-explore-plugin
 git clone https://github.com/endlessm/kolibri-channel-custom-web-app.git
-export VUE_APP_USE_MOCK_DATA=false
 cd kolibri-channel-custom-web-app
+# This is needed, for some reason the template-ui doesn't build without the
+# nodes.json
+./scripts/create_mock_nodes.py > template-ui/src/nodes.json
 yarn install
 yarn build
 yarn deploy ../kolibri-explore-plugin/kolibri_explore_plugin/apps
